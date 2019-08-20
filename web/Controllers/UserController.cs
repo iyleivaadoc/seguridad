@@ -11,6 +11,7 @@ using web.Models;
 
 namespace web.Controllers
 {
+    [Authorize(Roles ="Administrador")]
     public class UserController : Controller
     {
         private ApplicationUserManager _userManager;
@@ -37,7 +38,7 @@ namespace web.Controllers
         public ActionResult Create()
         {
             List<SelectListItem> list = new List<SelectListItem>();
-            foreach (var role in RoleManager.Roles)
+            foreach (var role in RoleManager.Roles.Where(x=>x.Eliminado==false))
                 list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
             ViewBag.Roles = list;
             return View();
@@ -67,7 +68,7 @@ namespace web.Controllers
                     return RedirectToAction("Index", "User");
                 }
                 List<SelectListItem> list = new List<SelectListItem>();
-                foreach (var role in RoleManager.Roles)
+                foreach (var role in RoleManager.Roles.Where(r=>r.Eliminado==false))
                     list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
                 ViewBag.Roles = list;
                 AddErrors(result);

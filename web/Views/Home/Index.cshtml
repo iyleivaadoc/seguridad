@@ -6,6 +6,7 @@
 @using (Html.BeginForm("Change", "Home"))
 {
     <input type="submit" class="btn btn-default" value="ingles" />
+    @User.IsInRole("auditor")
 }
 @*<div class="jumbotron">
     <h1>ASP.NET</h1>

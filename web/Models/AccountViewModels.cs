@@ -48,10 +48,14 @@ namespace web.Models
 
     public class LoginViewModel
     {
-        [Required]
+        //[Required]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
+
+        [Display(Name ="User Name")]
+        [Required]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,11 +68,16 @@ namespace web.Models
 
     public class RegisterViewModel
     {
-        [Required]
+       // [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        [Display(Name = "User Name")]
+        [Required]
+        public string UserName { get; set; }
+        public string Nombres { get; set; }
+        public string Apellidos { get; set; }
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -79,6 +88,8 @@ namespace web.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public string RoleName { get; set; }
     }
 
     public class ResetPasswordViewModel

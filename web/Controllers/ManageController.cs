@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using web.Models;
+using System.Collections.Generic;
 
 namespace web.Controllers
 {
@@ -333,7 +334,23 @@ namespace web.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+
+        public ActionResult ListUsers()
+        {
+            List<ApplicationUser> list = new List<ApplicationUser>();
+            foreach (var user in UserManager.Users)
+                list.Add(user);
+            return View(list);
+        }
+
+        public async Task<ActionResult> Details(string id)
+        {
+            var user = await UserManager.FindByIdAsync(id);
+            return View(user);
+        }
+
+
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 

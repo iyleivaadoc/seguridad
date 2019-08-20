@@ -121,6 +121,6 @@
     <value>hello word!!!</value>
   </data>
   <data name="despedida" xml:space="preserve">
-    <value>Bye</value>
+    <value>bye</value>
   </data>
 </root>

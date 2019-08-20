@@ -7,11 +7,11 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @if (User.Identity.IsAuthenticated) {<script>
+    @*@if (User.Identity.IsAuthenticated) {<script>
         var a = "@System.Web.HttpContext.Current.Session["sessionString"].ToString()";
         console.log(a,a.length);
     </script>
-    }
+    }*@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -27,12 +27,14 @@
 
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home "+User.Identity.Name, "Index", "Home")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Roles", "Index", "Role")</li>
+                    @*<li>@Html.ActionLink("Home "+User.Identity.Name, "Index", "Home")</li>
                     <li>@Html.ActionLink("About " + User.Identity.Name, "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact " + User.Identity.Name, "Contact", "Home")</li>
-                    @if (User.Identity.IsAuthenticated)
+                    <li>@Html.ActionLink("Contact " + User.Identity.Name, "Contact", "Home")</li>*@
+                    @*@if (User.Identity.IsAuthenticated)
                     {
-                    <li>@System.Web.HttpContext.Current.Session["sessionString"]</li>}
+                    <li>@System.Web.HttpContext.Current.Session["sessionString"]</li>}*@
                     
                 </ul>
                 @Html.Partial("_LoginPartial")

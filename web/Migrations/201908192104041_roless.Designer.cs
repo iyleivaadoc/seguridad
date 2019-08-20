@@ -7,13 +7,13 @@ namespace web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class tablapersona : IMigrationMetadata
+    public sealed partial class roless : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(tablapersona));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(roless));
         
         string IMigrationMetadata.Id
         {
-            get { return "201908082021008_tabla persona"; }
+            get { return "201908192104041_roless"; }
         }
         
         string IMigrationMetadata.Source

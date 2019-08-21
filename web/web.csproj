@@ -206,13 +206,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908192104041_roless.cs" />
-    <Compile Include="Migrations\201908192104041_roless.Designer.cs">
-      <DependentUpon>201908192104041_roless.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908192123054_rolessss.cs" />
-    <Compile Include="Migrations\201908192123054_rolessss.Designer.cs">
-      <DependentUpon>201908192123054_rolessss.cs</DependentUpon>
+    <Compile Include="Migrations\201908211540469_migracion1.cs" />
+    <Compile Include="Migrations\201908211540469_migracion1.Designer.cs">
+      <DependentUpon>201908211540469_migracion1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -244,11 +240,8 @@
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EmbeddedResource Include="Migrations\201908192104041_roless.resx">
-      <DependentUpon>201908192104041_roless.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908192123054_rolessss.resx">
-      <DependentUpon>201908192123054_rolessss.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908211540469_migracion1.resx">
+      <DependentUpon>201908211540469_migracion1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resourses\Strings.en.resx">
       <Generator>ResXFileCodeGenerator</Generator>

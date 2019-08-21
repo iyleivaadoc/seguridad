@@ -197,6 +197,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccesosController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CalendarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -211,6 +212,7 @@
       <DependentUpon>201908211540469_migracion1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Accesos.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -311,6 +313,11 @@
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\Accesos\Create.cshtml" />
+    <Content Include="Views\Accesos\Delete.cshtml" />
+    <Content Include="Views\Accesos\Details.cshtml" />
+    <Content Include="Views\Accesos\Edit.cshtml" />
+    <Content Include="Views\Accesos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

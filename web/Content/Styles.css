@@ -1,0 +1,9 @@
+﻿.centerForm{
+        margin-left: 11%;
+    }
+
+    @media (max-width: 991px) {
+        .centerForm{
+            margin-left: 28%;
+        }
+    }

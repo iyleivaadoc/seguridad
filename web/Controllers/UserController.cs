@@ -53,6 +53,7 @@ namespace web.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Nombres = model.Nombres, Apellidos = model.Apellidos };
+                model.Password = model.Password == null ? "Q1w2e3r4t%" : model.Password;
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -153,7 +154,7 @@ namespace web.Controllers
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error);
+                ModelState.AddModelError("", error.Replace("User Name","Usuario").Replace("Password","Contraseña").Replace("is already taken","ya existe").Replace("Name","Usuario"));
             }
         }
     }

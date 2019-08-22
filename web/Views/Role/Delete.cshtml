@@ -1,7 +1,7 @@
 ﻿@model web.Models.RoleViewModel
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar Rol";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -32,7 +32,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions" style="text-align:center">
-            <input type="submit" value="Borrar" class="btn btn-danger" /> |
+            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
             @Html.ActionLink("Cancelar", "Index",null,new { @class = "btn btn-success" })
         </div>
     }

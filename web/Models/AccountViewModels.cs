@@ -78,15 +78,15 @@ namespace web.Models
         public string UserName { get; set; }
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
-        [Required]
+        //[Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Confirmar Contraseña")]
+        //[Compare("Password", ErrorMessage = "La contraseña no coincide.")]
         public string ConfirmPassword { get; set; }
 
         public string RoleName { get; set; }

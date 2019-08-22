@@ -1,9 +1,22 @@
-﻿.centerForm{
-        margin-left: 11%;
-    }
+﻿.centerForm {
+    margin-left: 11%;
+}
 
-    @media (max-width: 991px) {
-        .centerForm{
-            margin-left: 28%;
-        }
+@media (max-width: 991px) {
+    .centerForm {
+        margin-left: 28%;
     }
+}
+
+.navbar-inverse {
+    background-color: #FECA2B;
+    border-color: #FECA2B;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #000000;
+}
+
+.navbar-inverse .navbar-toggle {
+    border-color: #feca2b;
+}

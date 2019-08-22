@@ -22,13 +22,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <img src="~/favicon.ico" style="margin-top: 10px;"/>
+                @*@Html.ActionLink("ADOC", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
 
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Roles", "Index", "Role")</li>
+                    <li>@*@Html.ActionLink("Home", "Index", "Home")*@</li>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <li>@Html.ActionLink("Roles", "Index", "Role")</li>
+                        <li>@Html.ActionLink("Usuarios", "Index", "User")</li>
+                    }
                     @*<li>@Html.ActionLink("Home "+User.Identity.Name, "Index", "Home")</li>
                     <li>@Html.ActionLink("About " + User.Identity.Name, "About", "Home")</li>
                     <li>@Html.ActionLink("Contact " + User.Identity.Name, "Contact", "Home")</li>*@

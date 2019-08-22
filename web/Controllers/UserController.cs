@@ -19,7 +19,7 @@ namespace web.Controllers
         private ApplicationSignInManager _signInManager;
 
         // GET: User
-        public ActionResult index()
+        public ActionResult Index()
         {
             List<ApplicationUser> list = new List<ApplicationUser>();
             foreach (var user in UserManager.Users.Where(x=>x.Eliminado==false))

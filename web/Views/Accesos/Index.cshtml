@@ -1,0 +1,60 @@
+﻿@model IEnumerable<web.Models.Accesos>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Control)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Metodo)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </th>*@
+        <th>
+            Predecesor
+        </th>
+        <th> Acciones</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+           
+            @Html.DisplayFor(modelItem => item.Control)
+        </td>
+        <td>
+            
+            @Html.DisplayFor(modelItem => item.Metodo)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Tipo)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.AccesoPredecesor)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_acceso }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_acceso }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_acceso })
+        </td>
+    </tr>
+}
+
+</table>

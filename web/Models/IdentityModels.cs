@@ -62,5 +62,9 @@ namespace web.Models
         public DbSet<Persona> Persona { get; set; }
         public DbSet<Accesos> Accesos { get; set; }
 
+        public DbSet<Accesos> Accesos { get; set; }
+
+        public DbSet<Permisos> Permisos { get; set; }
+
     }
 }

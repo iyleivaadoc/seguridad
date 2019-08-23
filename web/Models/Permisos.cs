@@ -24,5 +24,6 @@ namespace web.Models
 
         public virtual Accesos Accesos { get; set; }
         public virtual ApplicationRole ApplicationRole { get; set; }
+
     }
 }

@@ -69,7 +69,15 @@ namespace web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var acceso in db.Accesos.Where(x => x.AccesoPredecesor == null))
+                list.Add(new SelectListItem() { Value = acceso.id_acceso.ToString(), Text = acceso.Nombre });
+            ViewBag.Accesos = list;
+
             Accesos accesos = await db.Accesos.FindAsync(id);
+
+            //ViewBag.Predecesor = accesos
             if (accesos == null)
             {
                 return HttpNotFound();

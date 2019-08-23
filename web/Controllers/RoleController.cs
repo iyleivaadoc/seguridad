@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using web.Models;
+using web.ViewModels;
 
 namespace web.Controllers
 {
@@ -15,6 +17,7 @@ namespace web.Controllers
     public class RoleController : Controller
     {
         private ApplicationRoleManager _roleManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public RoleController()
         {
@@ -148,6 +151,107 @@ namespace web.Controllers
             var claimsIdentity = (ClaimsIdentity)principal.Identity;
             var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             return claim.Value;
+        }
+		
+		  public async Task<ActionResult> AsignarAccesos(string id)
+        {
+
+            if (id == "")
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var role = await RoleManager.FindByIdAsync(id);
+            web.ViewModels.PermisosVM model = new web.ViewModels.PermisosVM();
+            model.RolV = role;
+
+            //Obtengo listado de accesos
+            var lista = (from a in db.Accesos
+                         select new web.ViewModels.PermisosVM.AccesosVMList()
+                         {
+                             id_acceso = a.id_acceso,
+                             Nombre = a.Nombre,
+                             Selected = false
+                         }).ToList();
+
+            //Obtengo listado de accesos asignados al rol
+            var lista2 = (from a in db.Accesos
+                          join p in db.Permisos on a.id_acceso equals p.id_acceso
+                          where p.Id == id
+                          select new web.ViewModels.PermisosVM.AccesosVMList()
+                          {
+                              id_acceso = a.id_acceso,
+                              Nombre = a.Nombre,
+                              Selected = true
+                          }).ToList();
+
+
+            var objetosAComparar = from item in lista2
+                                   select item.id_acceso;
+
+            foreach (var item in lista)
+            {
+
+                if (objetosAComparar.Contains(item.id_acceso))
+                {
+                    item.Selected = true;
+                 }
+            }
+
+            model.AccesosDisp = lista.OrderByDescending(o => o.Selected).ToList();
+            model.AccesosSelect = lista2;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AsignarAccesos(web.ViewModels.PermisosVM permisos)
+        {
+            var Rol = permisos.RolV;
+            var Permisos = permisos;
+            var lista1 = permisos.AccesosDisp.ToList();
+
+            int i = 0;
+            foreach (var row in lista1)
+            {
+                if (row.Selected == true)
+                {
+                    permisos.AccesosSelect.Add(permisos.AccesosDisp[i]);
+                }
+                i++;
+
+            }
+
+            //Elimino de la tabla permisos
+            var toDelete = db.Permisos.Where(a => a.Id == Rol.Id).ToList();
+            if (toDelete == null)
+            {
+                //return 0;
+            }
+            else
+            {
+                foreach (var item in toDelete)
+                    db.Permisos.Remove(item);
+                db.SaveChanges();
+               }
+
+            //inserto los accesos seleccionados en la tabla permisos
+            foreach (var pa in permisos.AccesosSelect)
+            {
+                Permisos per = new Permisos();
+                per.id_acceso = pa.id_acceso;
+                per.Id = Rol.Id;
+                db.Permisos.Add(per);
+                db.SaveChanges();
+                i++;
+            }
+               
+            
+
+
+            return RedirectToAction("Index");
+
         }
 
     }

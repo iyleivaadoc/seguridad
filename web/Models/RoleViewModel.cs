@@ -34,5 +34,7 @@ namespace web.Models
         public DateTime FechaCrea { get; set; }
         public DateTime FechaModifica { get; set; }
 
+        public virtual ICollection<Permisos> Permisos { get; set; }
+
     }
 }

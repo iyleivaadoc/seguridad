@@ -11,44 +11,45 @@
     <h4>Accesos</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+        <dt style="margin-top: 5px;">
             @Html.DisplayNameFor(model => model.Nombre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Nombre)
+            @Html.TextBoxFor(model => model.Nombre, new { disabled = "disabled", @class = "form-control" })
         </dd>
-
-        <dt>
+        <br />
+        <dt style="margin-top: 5px;">
             @Html.DisplayNameFor(model => model.Control)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Control)
+            @Html.TextBoxFor(model => model.Control, new { disabled = "disabled", @class = "form-control" })
         </dd>
-
-        <dt>
+        <br />
+        <dt style="margin-top: 5px;">
             @Html.DisplayNameFor(model => model.Metodo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Metodo)
+            @Html.TextBoxFor(model => model.Metodo, new { disabled = "disabled", @class = "form-control" })
         </dd>
-
-        <dt>
+        <br />
+        <dt style="margin-top: 5px;">
             @Html.DisplayNameFor(model => model.Tipo)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Tipo)
+            @Html.TextBoxFor(model => model.Tipo, new { disabled = "disabled", @class = "form-control" })
         </dd>
-
-        <dt>
+        <br />
+        <dt style="margin-top: 5px;">
             Predecesor
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.AccesoPredecesor)
+            @*@Html.DisplayFor(model => model.AccesoPredecesor, new SelectList(ViewBag.Accesos, "value", "Text"), new { @class = "form-control" })*@
+           @Html.DropDownListFor(m => m.AccesoPredecesor, new SelectList(ViewBag.Accesos, "value", "Text"), new { @class = "form-control", disabled = "disabled" })
         </dd>
 
     </dl>

@@ -83,7 +83,6 @@ C:\Users\ileiva\Documents\Visual Studio 2015\Projects\web\web\bin\en\web.resourc
 C:\Users\ileiva\Documents\Visual Studio 2015\Projects\web\web\obj\Debug\web.Resourses.Strings.resources
 C:\Users\ileiva\Documents\Visual Studio 2015\Projects\web\web\obj\Debug\web.Resourses.Strings.en.resources
 C:\Users\ileiva\Documents\Visual Studio 2015\Projects\web\web\obj\Debug\en\web.resources.dll
-C:\Users\ileiva\Documents\Visual Studio 2015\Projects\web\web\obj\Debug\web.csprojResolveAssemblyReference.cache
 C:\Users\mmartir\Source\Repos\seguridad\web\bin\roslyn\csc.exe
 C:\Users\mmartir\Source\Repos\seguridad\web\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\mmartir\Source\Repos\seguridad\web\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -171,3 +170,4 @@ C:\Users\mmartir\Source\Repos\seguridad\web\obj\Debug\en\web.resources.dll
 C:\Users\mmartir\Source\Repos\seguridad\web\obj\Debug\web.dll
 C:\Users\mmartir\Source\Repos\seguridad\web\obj\Debug\web.pdb
 C:\Users\mmartir\Source\Repos\seguridad\web\obj\Debug\web.Migrations.migracion1.resources
+C:\Users\ileiva\Documents\Visual Studio 2015\Projects\web\web\obj\Debug\web.Migrations.accesoss.resources

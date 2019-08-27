@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +14,21 @@ using web.ViewModels;
 
 namespace web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Administrador")]
     public class RoleController : Controller
     {
         private ApplicationRoleManager _roleManager;
         private ApplicationDbContext db = new ApplicationDbContext();
+        private IdentityUserRole _userRole;
 
         public RoleController()
         {
         }
 
-        public RoleController(ApplicationRoleManager roleManager)
+        public RoleController(ApplicationRoleManager roleManager,IdentityUserRole userRole)
         {
             RoleManager = roleManager;
+            UserRole = userRole;
         }
 
         public ApplicationRoleManager RoleManager
@@ -39,9 +42,24 @@ namespace web.Controllers
                 _roleManager = value;
             }
         }
+
+        public IdentityUserRole UserRole
+        {
+            get
+            {
+                return _userRole ?? HttpContext.GetOwinContext().Get<IdentityUserRole>();
+            }
+            set
+            {
+                _userRole = value;
+            }
+        }
+
+
         // GET: Role
         public ActionResult Index()
         {
+            //var aaaa = HttpContext.GetOwinContext().Get<ApplicationUserRoleManager>();
             List<RoleViewModel> list = new List<RoleViewModel>();
             foreach (var role in RoleManager.Roles.Where(x => x.Eliminado == false))
                 list.Add(new RoleViewModel(role));
@@ -130,7 +148,7 @@ namespace web.Controllers
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
             var role = await RoleManager.FindByIdAsync(id);
-            if (role.Name=="Administrador")
+            if (role.Name == "Administrador")
             {
                 ModelState.AddModelError("", "El Rol Administrador no puede ser eliminado.");
                 return View("Delete", new RoleViewModel(role));
@@ -152,8 +170,8 @@ namespace web.Controllers
             var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             return claim.Value;
         }
-		
-		  public async Task<ActionResult> AsignarAccesos(string id)
+
+        public async Task<ActionResult> AsignarAccesos(string id)
         {
 
             if (id == "")
@@ -195,7 +213,7 @@ namespace web.Controllers
                 if (objetosAComparar.Contains(item.id_acceso))
                 {
                     item.Selected = true;
-                 }
+                }
             }
 
             model.AccesosDisp = lista.OrderByDescending(o => o.Selected).ToList();
@@ -234,7 +252,7 @@ namespace web.Controllers
                 foreach (var item in toDelete)
                     db.Permisos.Remove(item);
                 db.SaveChanges();
-               }
+            }
 
             //inserto los accesos seleccionados en la tabla permisos
             foreach (var pa in permisos.AccesosSelect)
@@ -246,8 +264,8 @@ namespace web.Controllers
                 db.SaveChanges();
                 i++;
             }
-               
-            
+
+
 
 
             return RedirectToAction("Index");

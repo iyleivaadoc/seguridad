@@ -10,6 +10,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using web.Models;
 using System.Collections.Generic;
+using System.Security.Principal;
+using Microsoft.AspNet.Identity.EntityFramework;
+using web.ViewModels;
 
 namespace web.Controllers
 {
@@ -19,6 +22,7 @@ namespace web.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -94,12 +98,17 @@ namespace web.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    Session["menu"]="hola";
-                    HttpCookie userIdCookie = new HttpCookie("UserID");
-                    System.Web.HttpContext.Current.Session["sessionString"] = "esta variable perdura entre controladores";
-                    ViewData["sessionString"] = System.Web.HttpContext.Current.Session["sessionString"] as String;
-                    userIdCookie.Value = ViewData["sessionString"].ToString();
-                    Response.Cookies.Add(userIdCookie);
+                    ApplicationDbContext cont = new ApplicationDbContext();
+                    var id = UserManager.FindByName(model.UserName).Id;
+                    ApplicationUser us = cont.Users.First(u => u.Id == id);
+                    List<string> rolesUsusario = new List<string>();
+                    var rol = us.Roles.ToList();
+                    foreach(IdentityUserRole role in us.Roles)
+                    {
+                        rolesUsusario.Add(role.RoleId);
+                    }
+                    Session["menuPrincipal"] = MenuPorUsuario(rolesUsusario);
+                    
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -447,6 +456,41 @@ namespace web.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        private List<menuItemVM> MenuPorUsuario(List<string> roles)
+        {
+            var a= db.Permisos.Where(x=>roles.Any(w=>w==x.ApplicationRole.Id && x.Accesos.AccesoPredecesor==null)).ToList();
+            List<Accesos> ret = new List<Accesos>();
+            foreach (var permiso in a)
+                ret.Add(permiso.Accesos);
+            var primerNivel = ret.Distinct().ToList();
+            List<menuItemVM> aRetornar=new List<menuItemVM>();
+            foreach (Accesos ac in primerNivel)
+            {
+                //var b = db.Permisos.Where(z => z.Accesos.AccesoPredecesor == ac.id_acceso.ToString() && z.Accesos.Tipo);
+                var b = db.Permisos.Where(z => roles.Any(w => w == z.ApplicationRole.Id && z.Accesos.AccesoPredecesor == ac.id_acceso.ToString()) );
+                List<Accesos> retInt = new List<Accesos>();
+                foreach (var permisoInt in b)
+                    retInt.Add(permisoInt.Accesos);
+                menuItemVM aux = new menuItemVM();
+                aux.id_acceso = ac.id_acceso;
+                aux.Nombre = ac.Nombre;
+                aux.Control = ac.Control;
+                aux.Metodo = ac.Metodo;
+                aux.Tipo = ac.Tipo;
+                aux.hijos = retInt;
+                aRetornar.Add(aux);
+
+            }
+            return aRetornar;
+        }
+
+        public string GetUserId(IPrincipal principal)
+        {
+            var claimsIdentity = (ClaimsIdentity)principal.Identity;
+            var claim = claimsIdentity.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            return claim.Value;
         }
 
         #region Helpers

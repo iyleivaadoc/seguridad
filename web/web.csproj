@@ -232,6 +232,7 @@
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\PermisosVM.cs" />
+    <Compile Include="ViewModels\RolesUsuarioVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -324,6 +325,7 @@
     <Content Include="Views\Accesos\Edit.cshtml" />
     <Content Include="Views\Accesos\Index.cshtml" />
     <Content Include="Views\Role\AsignarAccesos.cshtml" />
+    <Content Include="Views\User\AsignarRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

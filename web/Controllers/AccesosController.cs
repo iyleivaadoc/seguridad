@@ -11,6 +11,7 @@ using web.Models;
 
 namespace web.Controllers
 {
+    [Authorize(Roles ="Administrador")]
     public class AccesosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -18,7 +19,7 @@ namespace web.Controllers
         // GET: Accesos
         public async Task<ActionResult> Index()
         {
-
+            var ace = await db.Permisos.ToListAsync();
             var list = (from a in db.Accesos
                         select new
                         {

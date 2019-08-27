@@ -3,11 +3,14 @@ using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using web.Models;
+using System.Web.Security;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace web.Controllers
 {
@@ -17,6 +20,7 @@ namespace web.Controllers
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
         private ApplicationSignInManager _signInManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: User
         public ActionResult Index()
@@ -156,6 +160,91 @@ namespace web.Controllers
             {
                 ModelState.AddModelError("", error.Replace("User Name","Usuario").Replace("Password","Contraseña").Replace("is already taken","ya existe").Replace("Name","Usuario"));
             }
+        }
+
+        //Métodos para asignar n roles al usuario
+        public async Task<ActionResult> AsignarRoles(string id)
+        {
+
+            if (id == "")
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var user = await UserManager.FindByIdAsync(id);
+            web.ViewModels.RolesUsuarioVM model = new web.ViewModels.RolesUsuarioVM();
+            model.UsuarioV = user;
+
+            //Obtengo listado de accesos
+            var lista = (from a in RoleManager.Roles
+                         select new web.ViewModels.RolesUsuarioVM.RolesVMList()
+                         {
+                             Id = a.Id,
+                             Nombre = a.Name,
+                             Selected = false
+                         }).ToList();
+
+            //Obtengo listado de accesos asignados al rol
+            Models.ApplicationDbContext context = new ApplicationDbContext();
+            ApplicationUser au = context.Users.First(u => u.Id == id);
+
+            //web.ViewModels.RolesUsuarioVM list = new web.ViewModels.RolesUsuarioVM();
+
+            foreach (IdentityUserRole role in au.Roles)
+            {
+                string RolId = role.RoleId;
+                string RolName = context.Roles.First(r => r.Id == role.RoleId).Name;
+                bool Select= true;
+                model.RolSelect.Add( new web.ViewModels.RolesUsuarioVM.RolesVMList() {Id= RolId, Nombre = RolName, Selected=Select });
+            }
+
+            var objetosAComparar = from item in model.RolSelect select item.Id;
+
+            foreach (var item in lista)
+            {
+
+                if (objetosAComparar.Contains(item.Id))
+                {
+                    item.Selected = true;
+                }
+            }
+
+            model.RolDisp = lista.OrderByDescending(o => o.Selected).ToList();
+            //model.AccesosSelect = lista2;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AsignarRoles(web.ViewModels.RolesUsuarioVM rolUsuario)
+        {
+            var User = rolUsuario.UsuarioV;
+            var Roles = rolUsuario;
+            //var lista1 = rolUsuario.RolDisp.ToList();
+
+            int i = 0;
+            foreach (var row in rolUsuario.RolDisp)
+            {
+                    rolUsuario.RolSelect.Add(rolUsuario.RolDisp[i]);
+                    await UserManager.RemoveFromRoleAsync(User.Id, row.Nombre);
+                i++;
+
+            }
+
+            i = 0;
+            foreach (var row in rolUsuario.RolSelect)
+            {
+                if (row.Selected == true)
+                {
+                    await UserManager.AddToRoleAsync(User.Id, row.Nombre);
+                }
+                i++;
+
+            }
+
+            return RedirectToAction("Index");
+
         }
     }
 }

@@ -71,7 +71,8 @@ namespace web.Controllers
             }
 
             List<SelectListItem> list = new List<SelectListItem>();
-            foreach (var acceso in db.Accesos.Where(x => x.AccesoPredecesor == null))
+            list.Add(new SelectListItem() { Value = null, Text = "Seleccione..." });
+            foreach (var acceso in db.Accesos.Where(x => x.AccesoPredecesor == null).Where(x => x.Tipo == false))
                 list.Add(new SelectListItem() { Value = acceso.id_acceso.ToString(), Text = acceso.Nombre });
             ViewBag.Accesos = list;
 
@@ -90,8 +91,10 @@ namespace web.Controllers
         {
 
             List<SelectListItem> list = new List<SelectListItem>();
-            foreach (var acceso in db.Accesos.Where(x => x.AccesoPredecesor == null))
+            list.Add(new SelectListItem() { Value = null, Text = "Seleccione..." });
+            foreach (var acceso in db.Accesos.Where(x => x.AccesoPredecesor == null).Where(x=> x.Tipo == false))
                 list.Add(new SelectListItem() { Value = acceso.id_acceso.ToString(), Text = acceso.Nombre });
+            
             ViewBag.Accesos = list;
             return View();
         }
@@ -129,7 +132,8 @@ namespace web.Controllers
             else
             {
                 List<SelectListItem> list = new List<SelectListItem>();
-                foreach (var acceso in db.Accesos.Where(x => x.AccesoPredecesor == null))
+                list.Add(new SelectListItem() { Value = null, Text = "Seleccione..." });
+                foreach (var acceso in db.Accesos.Where(x => x.AccesoPredecesor == null).Where(x => x.Tipo == false))
                     list.Add(new SelectListItem() { Value = acceso.id_acceso.ToString(), Text = acceso.Nombre });
                 ViewBag.Accesos = list;
             }

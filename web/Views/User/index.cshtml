@@ -49,6 +49,7 @@
                     </td>
 
                     <td style="text-align:center;">
+                        @Html.ActionLink("Asignar Roles", "AsignarRoles", new { id = item.Id }, new { @class = "btn btn-xs btn-success" })
                         @Html.ActionLink("Detalles", "Details", new { id = item.Id }, new { @class = "btn btn-xs btn-info" })
                         @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-warning" })
                         @Html.ActionLink("Borrar", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-danger" })

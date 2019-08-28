@@ -23,7 +23,7 @@
 
 
 
-.navbar .dropdown-toggle, .navbar .dropdown-menu a {
+.navbar .dropdown-toggle, .navbar .dropdown-menu a, .navbar .dropdown a {
     cursor: pointer;
 }
 

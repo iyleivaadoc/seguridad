@@ -5,10 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Accesos</h4>
+<div class="col-md-6 col-md-offset-3">
+    <h2>Detalles</h2>
     <hr />
     <dl class="dl-horizontal">
         <dt style="margin-top: 5px;">
@@ -44,7 +42,7 @@
         </dd>
         <br />
         <dt style="margin-top: 5px;">
-            Predecesor
+            @Html.DisplayNameFor(model => model.AccesoPredecesor)
         </dt>
 
         <dd>
@@ -53,8 +51,9 @@
         </dd>
 
     </dl>
+    <div style="text-align:center;">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.id_acceso },new { @class="btn btn-warning"}) 
+        @Html.ActionLink("Regresar", "Index",null, new { @class="btn btn-success"})
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id_acceso }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

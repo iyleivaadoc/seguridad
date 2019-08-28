@@ -18,21 +18,21 @@ namespace web.Models
         public String Nombre { get; set; }
 
         [Required]
-        [Display(Name = "Control")]
+        [Display(Name = "Controlador")]
         [StringLength(50)]
         public String Control { get; set; }
 
         [Required]
-        [Display(Name = "Metodo")]
+        [Display(Name = "Método")]
         [StringLength(50)]
         public String Metodo { get; set; }
 
         [Required]
-        [Display(Name = "Tipo")]
+        [Display(Name = "Último Nivel")]
         public Boolean Tipo { get; set; }
 
         //[Required]
-        [Display(Name = "AccesoPredecesor")]
+        [Display(Name = "Opción Padre")]
         [StringLength(50)]
         public String AccesoPredecesor { get; set; }
 

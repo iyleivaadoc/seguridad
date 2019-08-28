@@ -11,6 +11,7 @@ using static web.Controllers.ManageController;
 
 namespace web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index(ManageMessageId? message)
@@ -24,16 +25,10 @@ namespace web.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.saludo = Resourses.Strings.saludo;
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
 
         [HttpPost]
-        public ActionResult EnviarCorreo() {
+        public ActionResult EnviarCorreo()
+        {
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("irvinadoc@gmail.com");
             mail.To.Add("irvin.leiva@empresasadoc.com");
@@ -47,24 +42,10 @@ namespace web.Controllers
             smtp.Port = 25;
             smtp.EnableSsl = true;
             smtp.UseDefaultCredentials = true;
-            smtp.Credentials = new System.Net.NetworkCredential("irvinadoc@gmail.com","Empr3s4adoc");
+            smtp.Credentials = new System.Net.NetworkCredential("irvinadoc@gmail.com", "Empr3s4adoc");
             smtp.Send(mail);
             return View("Index");
 
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-        public ActionResult Change()
-        {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-            ViewBag.saludo = Resourses.Strings.saludo;
-            return View();
         }
     }
 }

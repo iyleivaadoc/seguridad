@@ -14,7 +14,7 @@ using web.ViewModels;
 
 namespace web.Controllers
 {
-    [Authorize(Roles ="Administrador")]
+    [Authorize(Roles = "Administrador")]
     public class RoleController : Controller
     {
         private ApplicationRoleManager _roleManager;
@@ -25,7 +25,7 @@ namespace web.Controllers
         {
         }
 
-        public RoleController(ApplicationRoleManager roleManager,IdentityUserRole userRole)
+        public RoleController(ApplicationRoleManager roleManager, IdentityUserRole userRole)
         {
             RoleManager = roleManager;
             UserRole = userRole;
@@ -224,7 +224,7 @@ namespace web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AsignarAccesos(web.ViewModels.PermisosVM permisos)
+        public ActionResult AsignarAccesos(web.ViewModels.PermisosVM permisos)
         {
             var Rol = permisos.RolV;
             var Permisos = permisos;
@@ -243,16 +243,10 @@ namespace web.Controllers
 
             //Elimino de la tabla permisos
             var toDelete = db.Permisos.Where(a => a.Id == Rol.Id).ToList();
-            if (toDelete == null)
-            {
-                //return 0;
-            }
-            else
-            {
-                foreach (var item in toDelete)
-                    db.Permisos.Remove(item);
-                db.SaveChanges();
-            }
+
+            foreach (var item in toDelete)
+                db.Permisos.Remove(item);
+            db.SaveChanges();
 
             //inserto los accesos seleccionados en la tabla permisos
             foreach (var pa in permisos.AccesosSelect)
@@ -264,10 +258,7 @@ namespace web.Controllers
                 db.SaveChanges();
                 i++;
             }
-
-
-
-
+            
             return RedirectToAction("Index");
 
         }

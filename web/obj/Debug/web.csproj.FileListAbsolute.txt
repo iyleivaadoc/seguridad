@@ -168,6 +168,7 @@ C:\Users\mmartir\Source\Repos\seguridad\web\obj\Debug\web.csproj.GenerateResourc
 C:\Users\mmartir\Source\Repos\seguridad\web\obj\Debug\en\web.resources.dll
 C:\Users\mmartir\Source\Repos\seguridad\web\obj\Debug\web.dll
 C:\Users\mmartir\Source\Repos\seguridad\web\obj\Debug\web.pdb
-C:\Users\ileiva\Documents\Visual Studio 2015\Projects\web\web\obj\Debug\web.Migrations.accesoss.resources
 C:\Users\mmartir\Source\Repos\seguridad\web\obj\Debug\web.Migrations.migracion2.resources
 C:\Users\mmartir\Source\Repos\seguridad\web\obj\Debug\web.csprojResolveAssemblyReference.cache
+C:\Users\ileiva\Documents\Visual Studio 2015\Projects\web\web\obj\Debug\web.csprojResolveAssemblyReference.cache
+C:\Users\ileiva\Documents\Visual Studio 2015\Projects\web\web\obj\Debug\web.Migrations.pp.resources
